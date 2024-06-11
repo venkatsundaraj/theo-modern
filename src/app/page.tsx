@@ -17,16 +17,20 @@ const IMAGE_DATA = [
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const allLists = await api.example.hello({ text: "Venkat" });
-  console.log(allLists);
+
+  const keys = await api.example.getKeys();
 
   return (
-    <div className="grid grid-cols-3 gap-3">
-      {IMAGE_DATA.map((item, i) => {
-        return (
-          <Image width={400} height={200} src={item} alt={"One"} key={i} />
-        );
-      })}
-    </div>
+    <>
+      <h4 className="w-screen py-4 text-violet-300">{keys?.title}</h4>
+      <div className="grid grid-cols-3 gap-3">
+        {IMAGE_DATA.map((item, i) => {
+          return (
+            <Image width={400} height={200} src={item} alt={"One"} key={i} />
+          );
+        })}
+      </div>
+    </>
   );
 }
 
