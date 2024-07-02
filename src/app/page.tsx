@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
-import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import Image from "next/image";
 
@@ -15,14 +13,17 @@ const IMAGE_DATA = [
   "https://utfs.io/f/d305773d-445e-49b8-aabc-1837ae7a4e5a-j8diko.png",
 ];
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const allLists = await api.example.hello({ text: "Venkat" });
+  // const hello = await api.post.hello({ text: "from tRPC" });
+  // const allLists = await api.example.hello({ text: "Venkat" });
 
   const keys = await api.example.getKeys();
 
   return (
     <>
       <h4 className="w-screen py-4 text-violet-300">{keys?.title}</h4>
+      <Link href={"/login"} className="text-primary text-xl font-semibold">
+        Login
+      </Link>
       <div className="grid grid-cols-3 gap-3">
         {IMAGE_DATA.map((item, i) => {
           return (
@@ -33,22 +34,3 @@ export default async function Home() {
     </>
   );
 }
-
-// async function CrudShowcase() {
-//   const session = await getServerAuthSession();
-//   if (!session?.user) return null;
-
-//   const latestPost = await api.post.getLatest();
-
-//   return (
-//     <div className="w-full max-w-xs">
-//       {latestPost ? (
-//         <p className="truncate">Your most recent post: {latestPost.name}</p>
-//       ) : (
-//         <p>You have no posts yet.</p>
-//       )}
-
-//       <CreatePost />
-//     </div>
-//   );
-// }

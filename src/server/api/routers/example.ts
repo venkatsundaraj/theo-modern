@@ -9,6 +9,8 @@ export const exampleRouter = createTRPCRouter({
       return `Damn You are right, ${input.text}`;
     }),
   getKeys: publicProcedure.query(async ({ ctx }) => {
-    return ctx.db.query.keys.findFirst();
+    return ctx.db.query.keys.findFirst({
+      where: (table, func) => func.eq(table.title, "Javascript"),
+    });
   }),
 });
