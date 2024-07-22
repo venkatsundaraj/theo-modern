@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { textValidation } from "~/lib/validations/text-validation";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { db } from "~/server/db";
 
 export const exampleRouter = createTRPCRouter({
@@ -13,4 +18,10 @@ export const exampleRouter = createTRPCRouter({
       where: (table, func) => func.eq(table.title, "Javascript"),
     });
   }),
+  createPerson: protectedProcedure
+    .input(textValidation)
+    .query(({ ctx, input }) => {
+      console.log(input, ctx);
+      return `Hello ${input.text}`;
+    }),
 });

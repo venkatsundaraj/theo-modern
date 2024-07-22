@@ -103,3 +103,9 @@ export const keys = createTable("keys", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: varchar("title", { length: 225 }).notNull(),
 });
+
+export const person = createTable("person", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  age: integer("name").notNull(),
+});
