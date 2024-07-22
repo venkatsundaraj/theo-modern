@@ -24,7 +24,7 @@ export default withAuth(
 
       return NextResponse.next();
     }
-    console.log(isAuth, isInProtectedRoutes);
+    console.log(token, isAuth, isInProtectedRoutes);
     if (!isAuth && isInProtectedRoutes) {
       if (req.nextUrl.search) {
         url += req.nextUrl.search;
